@@ -11,16 +11,16 @@ account="$1"
 shift
 
 for path_original in $@; do
-	if [[ "$path_original" =~ (docker.io/)?"$account"/* ]]; then
+	if [[ "$path_original" =~ (sudo nerdctl -n k8s.io.io/)?"$account"/* ]]; then
 		path_wraped="$path_original"
 	else
 		path_wraped="docker.io/$account/${path_original//\//_slash_}"
 	fi
 
-	docker pull $path_wraped
+	sudo nerdctl -n k8s.io pull $path_wraped
 	if [[ "$path_wraped" != "$path_original" ]]; then
-		docker tag "$path_wraped" "$path_original"
-		docker rmi "$path_wraped"
+		sudo nerdctl -n k8s.io tag "$path_wraped" "$path_original"
+		sudo nerdctl -n k8s.io rmi "$path_wraped"
   fi
 
 done
