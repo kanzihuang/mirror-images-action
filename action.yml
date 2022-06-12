@@ -1,15 +1,17 @@
-name: 'Hello World'
-description: 'Greet someone and record the time'
+name: 'mirror-images-action'
+description: 'Mirror images to your account of hub.docker.com'
+
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  username:
+    description: the account of docker.io
     required: true
-    default: 'World'
-outputs:
-  time: # id of output
-    description: 'The time we greeted you'
+  password:
+    description: the password of the account
+    requried: true
+
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: docker
+  image: Dockerfile
   args:
-    - ${{ inputs.who-to-greet }}
+    - ${{ inputs.username }}
+    - ${{ inputs.password }}
