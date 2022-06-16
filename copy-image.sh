@@ -11,10 +11,10 @@ account=$1
 shift
 
 for path_original in "$@"; do
-	if [[ "$path_original" =~ (docker.io/)?"$account"/* ]]; then
-		path_wraped="$path_original"
-	else
+	if [[ "$path_original" =~ ^registry\.k8s\.io/ ]]; then
 		path_wraped="docker.io/$account/${path_original//\//_slash_}"
+	else
+		path_wraped="$path_original"
 	fi
 
 	[[ "$path_wraped" == "$path_original" ]] && continue
