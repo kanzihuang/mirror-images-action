@@ -7,16 +7,11 @@ if [[ $# -lt 2 ]]; then
   exit 1
 fi
 
-account="$1"
-shift
+account="$1" && shift
+source $(dirname $0)/utils.sh
 
 for path_original in $@; do
-  if [[ "$path_original" =~ ^registry\.k8s\.io/ ]]; then
-    path_wraped="docker.io/$account/${path_original//\//_slash_}"
-  else
-    path_wraped="$path_original"
-  fi
-
+  path_wraped=$(wrap_image_path $path_original)
   sudo nerdctl -n k8s.io pull $path_wraped
   if [[ "$path_wraped" != "$path_original" ]]; then
     sudo nerdctl -n k8s.io tag "$path_wraped" "$path_original"

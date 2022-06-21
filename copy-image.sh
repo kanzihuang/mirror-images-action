@@ -2,21 +2,16 @@
 
 set -euo pipefail
 
-if [[ $# .lt 2 ]]; then
+if [[ $# -lt 2 ]]; then
   echo "Usage: $(dirname $0) <account> <image-path>..."
   exit 1
 fi
 
-account=$1
-shift
+account=$1 && shift
+source "$(dirname $0)/utils.sh"
 
 for path_original in "$@"; do
-  if [[ "$path_original" =~ ^registry\.k8s\.io/ ]]; then
-    path_wraped="docker.io/$account/${path_original//\//_slash_}"
-  else
-    path_wraped="$path_original"
-  fi
-
+  path_wraped=$(wrap_image_path $path_original)
   [[ "$path_wraped" == "$path_original" ]] && continue
 
   if ! layers_original="$(skopeo inspect -f {{.Layers}} docker://$path_original 2> /dev/null)"; then
