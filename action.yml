@@ -2,11 +2,17 @@ name: 'mirror-images-action'
 description: 'Mirror images to your account of hub.docker.com'
 
 inputs:
+  registry:
+    description: the registry
+    required: true
+  group:
+    description: the group of the registry
+    required: true
   username:
-    description: the account of docker.io
+    description: the username for the registry
     required: true
   password:
-    description: the password of the account
+    description: the password for the registry
     requried: true
 
 runs:
