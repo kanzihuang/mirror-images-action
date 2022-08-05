@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-if [[ $# != 3 ]]; then
+if [[ $# != 4 ]]; then
   echo "Usage: $(basename $0) <registry> <group> <username> <password>"
   exit 1
 fi

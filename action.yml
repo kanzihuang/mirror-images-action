@@ -13,5 +13,7 @@ runs:
   using: docker
   image: Dockerfile
   args:
+    - ${{ inputs.registry }}
+    - ${{ inputs.group }}
     - ${{ inputs.username }}
     - ${{ inputs.password }}
