@@ -1,10 +1,7 @@
-name: Mirror images to docker.io
+name: Mirror images
 on:
   push:
   workflow_dispatch:
-env:
-  DOCKER_HUB_REGISTRY: docker.io
-  HUAWEI_HUB_REGISTRY: swr.cn-north-4.myhuaweicloud.com
 
 jobs:
   mirror:
@@ -13,10 +10,17 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Mirror images
+    - name: Mirror images to docker.io
       uses: ./
       with:
-        registry: ${{ env.HUAWEI_HUB_REGISTRY }}
+        registry: docker.io
+        group: kanzihuang
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+    - name: Mirror images to huawei
+      uses: ./
+      with:
+        registry: swr.cn-north-4.myhuaweicloud.com
         group: kanzihuang
         username: ${{ secrets.HUAWEI_HUB_USERNAME }}
         password: ${{ secrets.HUAWEI_HUB_PASSWORD }}
