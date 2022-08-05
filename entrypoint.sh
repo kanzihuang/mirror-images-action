@@ -2,14 +2,16 @@
 
 set -euo pipefail
 
-if [[ $# != 2 ]]; then
-  echo "Usage: $(basename $0) <username> <password>"
+if [[ $# != 3 ]]; then
+  echo "Usage: $(basename $0) <registry> <group> <username> <password>"
   exit 1
 fi
 
-username=$1
-password=$2
+registry=$1
+group=$2
+username=$3
+password=$4
 
-skopeo login --username $username --password $password docker.io
-# find mirror.d/ -type f -exec xargs -a {} ./copy-image.sh $username \;
-skopeo logout docker.io
+skopeo login --username $username --password $password $registry
+find mirror.d/ -type f -exec xargs -a {} ./copy-image.sh $registry $group \;
+skopeo logout $registry

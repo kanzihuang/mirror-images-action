@@ -13,5 +13,7 @@ jobs:
     - name: Mirror images
       uses: ./
       with:
-        username: ${{ secrets.DOCKER_HUB_USERNAME }}
-        password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+        registry: swr.cn-north-4.myhuaweicloud.com
+        group: kanzihuang
+        username: ${{ secrets.HUAWEI_HUB_USERNAME }}
+        password: ${{ secrets.HUAWEI_HUB_PASSWORD }}
