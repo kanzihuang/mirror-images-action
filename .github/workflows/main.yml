@@ -11,16 +11,26 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Mirror images to docker.io
+      if: true
       uses: ./
       with:
         registry: docker.io
         group: kanzihuang
-        username: ${{ secrets.DOCKER_HUB_USERNAME }}
-        password: ${{ secrets.DOCKER_HUB_PASSWORD }}
-    - name: Mirror images to huawei
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Mirror images to swr.cn-north-1.myhuaweicloud.com
+      if: true
+      uses: ./
+      with:
+        registry: swr.cn-north-1.myhuaweicloud.com
+        group: kanzihuang
+        username: cn-north-1@${{ secrets.HUAWEIHUB_USERNAME }}
+        password: ${{ secrets.HUAWEIHUB_TOKEN }}
+    - name: Mirror images to swr.cn-north-4.myhuaweicloud.com
+      if: true
       uses: ./
       with:
         registry: swr.cn-north-4.myhuaweicloud.com
         group: kanzihuang
-        username: ${{ secrets.HUAWEI_HUB_USERNAME }}
-        password: ${{ secrets.HUAWEI_HUB_PASSWORD }}
+        username: cn-north-4@${{ secrets.HUAWEIHUB_USERNAME }}
+        password: ${{ secrets.HUAWEIHUB_TOKEN }}

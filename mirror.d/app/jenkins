@@ -1,1 +1,1 @@
-jenkins/jenkins:lts-alpine
+docker.io/jenkins/jenkins:lts-alpine

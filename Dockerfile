@@ -1,5 +1,5 @@
 # Container image that runs your code
-FROM alpine
+FROM docker
 
 RUN apk add --no-cache \
   bash \

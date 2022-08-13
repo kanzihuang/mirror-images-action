@@ -12,8 +12,13 @@ group=$1 && shift
 source "$(dirname $0)/utils.sh"
 
 for path_original in "$@"; do
-  path_wraped=$(wrap_image_path $registry $group $path_original)
-  [[ "$path_wraped" != "$path_original" ]] && skopeo copy --all docker://$path_original docker://$path_wraped
+  path_wrapped=$(wrap_image_path $registry $group $path_original)
+  echo "skopeo copy --all  docker://$path_original docker://$path_wrapped"
+  if [[ "$path_wrapped" != "$path_original" ]]; then
+    if ! skopeo copy --all --retry-times 3 docker://$path_original docker://$path_wrapped; then
+      docker pull $path_original
+      docker tag $path_original $path_wrapped
+      docker push $path_wrapped
+    fi
+  fi
 done
-
-exit 0
