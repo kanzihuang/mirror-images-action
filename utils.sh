@@ -8,6 +8,7 @@ function wrap_image_path() {
   pattern='*([-_.:[:alnum:]])'
   declare -A dict
   dict=(
+    [docker.io/library/]=""
     [docker.io/kanzihuang/]=""
     [registry.k8s.io/]=""
     [quay.io/coreos/etcd]="etcd"
