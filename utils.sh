@@ -11,6 +11,7 @@ function wrap_image_path() {
     [docker.io/library/]=""
     [docker.io/kanzihuang/]=""
     [registry.k8s.io/]=""
+    [k8s.gcr.io/]=""
     [quay.io/coreos/etcd]="etcd"
     [quay.io/kubespray/kubespray]="kubespray"
   )

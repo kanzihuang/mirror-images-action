@@ -20,7 +20,9 @@ function get-image-name-wrapped() {
 
 for path_original in "$@"; do
   name_wrapped=$(get-image-name-wrapped $path_original)
-  sed -i /^curl/s#/repos/[-._[:alnum:]]*#/repos/$name_wrapped# curl-make-public.sh
-  ./curl-make-public.sh
+  cat make-public.curl | \
+    sed "s/\\\\$//" | \
+    sed "/^curl/{s/^curl//; s/[-._[:alnum:]]*\('\s*\)$/${name_wrapped}\1/}" | \
+    xargs curl
   sleep 1
 done
