@@ -16,8 +16,8 @@ docker login --username $username --password $password $registry
 skopeo login --username $username --password $password $registry
 
 # mirror the below images
-cat ./mirror.d/docker.io/library.list | \
-  # grep "^quay.io/coreos/etcd" | \
+cat ./mirror.d/cluster/kubespray/* | \
+  grep "^quay.io/kubespray/kubespray" | \
   xargs ./copy-image.sh $registry $group
 
 # mirror all images

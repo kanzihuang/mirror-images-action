@@ -12,6 +12,7 @@ function wrap_image_path() {
     [docker.io/kanzihuang/]=""
     [registry.k8s.io/]=""
     [quay.io/coreos/etcd]="etcd"
+    [quay.io/kubespray/kubespray]="kubespray"
   )
 
   trimmed=$path_original
