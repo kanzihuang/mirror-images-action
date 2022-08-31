@@ -7,22 +7,20 @@ if [[ $# -lt 1 ]]; then
   exit 1
 fi
 
-source "$(dirname $0)/utils.sh"
-function get-image-name-wrapped() {
-  registry=docker.io
-  group=kanzihuang
-  path_original=$1
-  wrapped=$(wrap_image_path docker.io kanzihuang $path_original)
-  trimmed=${wrapped##*/}
-  trimmed=${trimmed%:*}
-  echo $trimmed
+generate_image_path="$(dirname $0)/generate-image-path.sh"
+function generate-image-name() {
+  image_source=$1
+  name=$($generate_image_path docker.io/kanzihuang $image_source)
+  name=${name##*/}
+  name=${name%:*}
+  echo $name
 }
 
-for path_original in "$@"; do
-  name_wrapped=$(get-image-name-wrapped $path_original)
+for image_source in "$@"; do
+  image_name=$(generate-image-name $image_source)
   cat make-public.curl | \
-    sed "s/\\\\$//" | \
-    sed "/^curl/{s/^curl//; s/[-._[:alnum:]]*\('\s*\)$/${name_wrapped}\1/}" | \
+    sed 's/\\$//' | \
+    sed "/^curl/{s/^curl//; s/[^/]*\('\s*\)$/${image_name}\1/}" | \
     xargs curl
   sleep 1
 done

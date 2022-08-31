@@ -2,22 +2,21 @@
 
 set -euo pipefail
 
-if [[ $# -lt 3 ]]; then
-  echo "Usage: $(basename $0) <registry> <group> <image-path>..."
+if [[ $# -lt 2 ]]; then
+  echo "Usage: $(basename $0) <registry-destination> <image-source>..."
   exit 1
 fi
 
-registry=$1 && shift
-group=$1 && shift
-source "$(dirname $0)/utils.sh"
+registry_destination=$1 && shift
+generate_image_path="$(dirname $0)/generate-image-path.sh"
 
-for path_original in "$@"; do
-  path_wrapped=$(wrap_image_path $registry $group $path_original)
-  echo "skopeo copy --all  docker://$path_original docker://$path_wrapped"
-  if [[ "$path_wrapped" != "$path_original" ]]; then
-    if ! skopeo copy --all --retry-times 3 docker://$path_original docker://$path_wrapped; then
-      docker pull $path_original
-      docker tag $path_original $path_wrapped
+for image_source in "$@"; do
+  path_wrapped=$($generate_image_path $registry_destination $image_source)
+  echo "skopeo copy --all  docker://$image_source docker://$path_wrapped"
+  if [[ "$path_wrapped" != "$image_source" ]]; then
+    if ! skopeo copy --all --retry-times 3 docker://$image_source docker://$path_wrapped; then
+      docker pull $image_source
+      docker tag $image_source $path_wrapped
       docker push $path_wrapped
     fi
   fi

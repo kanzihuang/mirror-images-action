@@ -2,20 +2,19 @@
 
 set -euo pipefail
 
-if [[ $# -lt 3 ]]; then
-  echo "Usage: $(basename $0) <registry> <group> <image-path>..."
+if [[ $# -lt 2 ]]; then
+  echo "Usage: $(basename $0) <registry-destination> <image-path>..."
   exit 1
 fi
 
-registry="$1" && shift
-group="$1" && shift
-source $(dirname $0)/utils.sh
+registry_destination="$1" && shift
+generate_image_path="$(dirname $0)/generate-image-path.sh"
 
-for path_original in $@; do
-  path_wraped=$(wrap_image_path $registry $group $path_original)
+for image_path in $@; do
+  path_wraped=$("$generate_image_path" "$registry_destination" "$image_path")
   sudo nerdctl -n k8s.io pull $path_wraped
-  if [[ "$path_wraped" != "$path_original" ]]; then
-    sudo nerdctl -n k8s.io tag "$path_wraped" "$path_original"
+  if [[ "$path_wraped" != "$image_path" ]]; then
+    sudo nerdctl -n k8s.io tag "$path_wraped" "$image_path"
     sudo nerdctl -n k8s.io rmi "$path_wraped"
   fi
 

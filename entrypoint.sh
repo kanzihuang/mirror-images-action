@@ -16,9 +16,9 @@ docker login --username $username --password $password $registry
 skopeo login --username $username --password $password $registry
 
 # mirror the below images
-cat ./mirror.d/cluster/kubespray/kubespray-file-server | \
-  # grep "^quay.io/kubespray/kubespray" | \
-  xargs ./copy-image.sh $registry $group
+cat mirror.d/cluster/kubespray/kubespray-v2.19.0-images.list \
+  | grep /pause \
+  | xargs ./copy-image.sh $registry/$group
 
 # mirror all images
 # find mirror.d/cluster/kubespray/ -type f -exec cat {} + | xargs ./copy-image.sh $registry $group
