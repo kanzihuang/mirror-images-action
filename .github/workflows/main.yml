@@ -19,7 +19,7 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Mirror images to swr.cn-north-1.myhuaweicloud.com
-      if: true
+      if: false
       uses: ./
       with:
         registry: swr.cn-north-1.myhuaweicloud.com
@@ -27,7 +27,7 @@ jobs:
         username: cn-north-1@${{ secrets.HUAWEIHUB_USERNAME }}
         password: ${{ secrets.HUAWEIHUB_TOKEN }}
     - name: Mirror images to swr.cn-north-4.myhuaweicloud.com
-      if: true
+      if: false
       uses: ./
       with:
         registry: swr.cn-north-4.myhuaweicloud.com
