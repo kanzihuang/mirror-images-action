@@ -15,9 +15,12 @@ password=$4
 docker login --username $username --password $password $registry
 skopeo login --username $username --password $password $registry
 
+sed --version
+
 # mirror the below images
-cat mirror.d/cluster/kubespray/kubespray-v2.19.1 \
-  | xargs ./copy-image.sh $registry/$group
+cat mirror.d/cluster/kubespray/kubespray-v2.19.0-images.list \
+  | grep etcd \
+  | xargs -t ./copy-image.sh $registry/$group
 
 # mirror all images
 # find mirror.d/cluster/kubespray/ -type f -exec cat {} + | xargs ./copy-image.sh $registry $group
