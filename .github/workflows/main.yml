@@ -4,12 +4,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  mirror:
+  mirror1:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
-
     - name: Mirror images to docker.io
       if: true
       uses: ./
@@ -18,6 +16,24 @@ jobs:
         group: kanzihuang
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+  mirror2:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Mirror images to registry.cn-beijing.aliyuncs.com
+      if: true
+      uses: ./
+      with:
+        registry: registry.cn-beijing.aliyuncs.com
+        group: kanzihuang
+        username: ${{ secrets.ALIYUNHUB_USERNAME }}
+        password: ${{ secrets.ALIYUNHUB_TOKEN }}
+
+  mirror3:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
     - name: Mirror images to swr.cn-north-1.myhuaweicloud.com
       if: true
       uses: ./
@@ -26,6 +42,11 @@ jobs:
         group: kanzihuang
         username: cn-north-1@${{ secrets.HUAWEIHUB_USERNAME }}
         password: ${{ secrets.HUAWEIHUB_TOKEN }}
+
+  mirror4:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
     - name: Mirror images to swr.cn-north-4.myhuaweicloud.com
       if: true
       uses: ./

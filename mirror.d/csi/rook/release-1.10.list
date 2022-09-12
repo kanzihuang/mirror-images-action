@@ -1,0 +1,14 @@
+quay.io/cephcsi/cephcsi:v3.7.0
+registry.k8s.io/sig-storage/csi-attacher:v3.4.0
+registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.5.1
+registry.k8s.io/sig-storage/csi-provisioner:v3.1.0
+registry.k8s.io/sig-storage/csi-resizer:v1.4.0
+registry.k8s.io/sig-storage/csi-snapshotter:v6.0.1
+alpine:3.16.2
+bitnami/kubectl:1.21.11
+docker.io/library/nginx:latest
+nginx
+quay.io/ceph/ceph:v17
+quay.io/ceph/ceph:v17.2.3
+registry:2
+rook/ceph:v1.10.1
