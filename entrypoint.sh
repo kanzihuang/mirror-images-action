@@ -19,7 +19,7 @@ sed --version
 
 # mirror the below images
 # cat mirror.d/csi/rook/release-1.10.list \
-echo rabbitmq:3.10.2-management \
+cat mirror.d/cluster/kubespray/kubespray-v2.19.0-images.list \
   | xargs -t ./copy-image.sh ORIGIN $registry/$group
 
 # mirror all images

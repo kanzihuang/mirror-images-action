@@ -42,16 +42,3 @@ jobs:
         group: kanzihuang
         username: cn-north-1@${{ secrets.HUAWEIHUB_USERNAME }}
         password: ${{ secrets.HUAWEIHUB_TOKEN }}
-
-  mirror4:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Mirror images to swr.cn-north-4.myhuaweicloud.com
-      if: true
-      uses: ./
-      with:
-        registry: swr.cn-north-4.myhuaweicloud.com
-        group: kanzihuang
-        username: cn-north-4@${{ secrets.HUAWEIHUB_USERNAME }}
-        password: ${{ secrets.HUAWEIHUB_TOKEN }}
