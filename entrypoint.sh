@@ -19,8 +19,8 @@ sed --version
 
 # mirror the below images
 # cat mirror.d/csi/rook/release-1.10.list \
-cat mirror.d/cluster/kubespray/kubespray-v2.19.0-images.list \
-  | xargs -t ./copy-image.sh ORIGIN $registry/$group
+cat mirror.d/monitoring/loki-stack-2.8.3-images.list \
+  | xargs ./copy-image.sh ORIGIN $registry/$group
 
 # mirror all images
 # find mirror.d/cluster/kubespray/ -type f -exec cat {} + | xargs ./copy-image.sh $registry $group
