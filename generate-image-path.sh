@@ -12,7 +12,7 @@ image_source=$2
 declare -A repositories=(
   # gcr and kubernetes image repo define
   # [gcr_image_repo]="gcr.io"
-  [kube_image_repo]="k8s.gcr.io"
+  [kube_image_repo]="registry.k8s.io"
   [k8s_image_repo]="registry.k8s.io"
 
   # docker image repo define
@@ -40,7 +40,7 @@ declare mapping="
 
   {{ docker_image_repo }},{{ registry_host }}
 
-  {{ kube_image_repo }},{{ registry_host }}/{{ kube_image_repo }}
+  {{ kube_image_repo }},{{ registry_host }}/{{ k8s_image_repo }}
   {{ k8s_image_repo }},{{ registry_host }}/{{ k8s_image_repo }}
   {{ gcr_image_repo }},{{ registry_host }}/{{ gcr_image_repo }}
   {{ github_image_repo }},{{ registry_host }}/{{ github_image_repo }}
