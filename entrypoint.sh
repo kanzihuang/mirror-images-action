@@ -18,8 +18,8 @@ skopeo login --username $username --password $password $registry
 sed --version
 
 # mirror the below images
-# cat mirror.d/csi/rook/release-1.10.list \
-cat mirror.d/cluster/kubespray/kubespray-v2.20-images.list \
+# cat mirror.d/cluster/kubespray/kubespray-v2.20-images.list \
+echo registry.k8s.io/e2e-test-images/echoserver:2.3 \
   | xargs ./copy-image.sh ORIGIN $registry/$group
 
 # mirror all images
