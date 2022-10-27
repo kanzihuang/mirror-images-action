@@ -19,7 +19,7 @@ sed --version
 
 # mirror the below images
 # cat mirror.d/cluster/kubespray/kubespray-v2.20-images.list \
-echo registry.k8s.io/e2e-test-images/echoserver:2.3 \
+echo gcr.io/istio-testing/build-tools:master-34b06c08ee613a15e08c5888ac269ad22f23d23e \
   | xargs ./copy-image.sh ORIGIN $registry/$group
 
 # mirror all images
