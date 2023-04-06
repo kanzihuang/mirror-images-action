@@ -5,7 +5,6 @@ if [[ $# -ne 2 ]]; then
   exit 1
 fi
 
-docker_io_account="kanzihuang"
 registry_host=$1
 image_source=$2
 
@@ -29,21 +28,23 @@ declare -A repositories=(
 )
 
 declare mapping="
-  {{ quay_image_repo }}/kubespray/kubespray,{{ registry_host }}/kubespray
+  {{ registry_host }},{{ registry_host }}
+
+  {{ docker_image_repo }},{{ docker_image_repo }}
+
   {{ kube_image_repo }}/kube-apiserver,{{ registry_host }}/kube-apiserver
   {{ kube_image_repo }}/kube-controller-manager,{{ registry_host }}/kube-controller-manager
   {{ kube_image_repo }}/kube-scheduler,{{ registry_host }}/kube-scheduler
   {{ kube_image_repo }}/kube-proxy,{{ registry_host }}/kube-proxy
-
-  {{ docker_image_repo }}/library,{{ registry_host }}
-  {{ docker_image_repo }}/${docker_io_account},{{ registry_host }}
-
-  {{ docker_image_repo }},{{ registry_host }}
-
   {{ kube_image_repo }},{{ registry_host }}/{{ k8s_image_repo }}
+
   {{ k8s_image_repo }},{{ registry_host }}/{{ k8s_image_repo }}
+
   {{ gcr_image_repo }},{{ registry_host }}/{{ gcr_image_repo }}
+
   {{ github_image_repo }},{{ registry_host }}/{{ github_image_repo }}
+
+  {{ quay_image_repo }}/kubespray/kubespray,{{ registry_host }}/kubespray
   {{ quay_image_repo }},{{ registry_host }}/{{ quay_image_repo }}
 "
 
